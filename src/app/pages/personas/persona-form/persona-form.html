@@ -1,0 +1,61 @@
+<div class="container">
+  <header class="header">
+    <h2>{{ idEdit ? 'Editar' : 'Nueva' }} Persona</h2>
+    <a routerLink="/personas" class="btn btn-secondary">← Volver</a>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="save()" class="form">
+
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input id="nombre"
+             type="text"
+             formControlName="nombre"
+             class="form-control"
+             placeholder="Ingrese el nombre">
+    </div>
+
+    <div class="form-group">
+      <label for="apellido">Apellido</label>
+      <input id="apellido"
+             type="text"
+             formControlName="apellido"
+             class="form-control"
+             placeholder="Ingrese el apellido">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email"
+             type="email"
+             formControlName="email"
+             class="form-control"
+             placeholder="ejemplo@correo.com">
+    </div>
+
+    <div class="form-group">
+      <label for="edad">Edad</label>
+      <input id="edad"
+             type="number"
+             formControlName="edad"
+             class="form-control"
+             min="0"
+             max="120"
+             placeholder="Ingrese la edad">
+    </div>
+
+    <div class="form-actions">
+      <button type="button"
+              (click)="cancel()"
+              class="btn btn-secondary">
+        Cancelar
+      </button>
+
+      <button type="submit"
+              [disabled]="form.invalid || form.pristine"
+              class="btn btn-primary">
+        {{ idEdit ? 'Actualizar' : 'Guardar' }} Persona
+      </button>
+    </div>
+  </form>
+</div>
