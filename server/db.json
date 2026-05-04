@@ -1,30 +1,12 @@
 {
-  "posts": [
-    {
-      "id": "2",
-      "title": "another title",
-      "views": 200
-    },
-    {
-      "title": "nuevo post",
-      "views": 50,
-      "id": "GGlEpWNRRC0"
-    }
-  ],
-  "comments": [
+  "personas": [
     {
       "id": "1",
-      "text": "a comment about post 1",
-      "postId": null
-    },
-    {
-      "id": "2",
-      "text": "another comment about post 1",
-      "postId": null
+      "nombre": "Juan3",
+      "apellido": "Perez3",
+      "email": "juan@ex.com3",
+      "edad": 33
     }
   ],
-  "profile": {
-    "name": "typicode"
-  },
   "$schema": "./node_modules/json-server/schema.json"
 }
