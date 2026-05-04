@@ -2,9 +2,9 @@
   "personas": [
     {
       "id": "1",
-      "nombre": "Juan3",
-      "apellido": "Perez3",
-      "email": "juan@ex.com3",
+      "nombre": "Juan",
+      "apellido": "Perez",
+      "email": "juan@ex.com",
       "edad": 33
     }
   ],

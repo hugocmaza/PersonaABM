@@ -1,61 +1,65 @@
-<div class="container">
-  <header class="header">
-    <h2>{{ idEdit ? 'Editar' : 'Nueva' }} Persona</h2>
-    <a routerLink="/personas" class="btn btn-secondary">← Volver</a>
-  </header>
+<mat-card class="form-card">
+  <mat-card-header class="header">
+    <mat-card-title>{{ idEdit ? 'Editar' : 'Nueva' }} Persona</mat-card-title>
+    <mat-card-subtitle>Completa los datos para guardar en la API local</mat-card-subtitle>
+    <a mat-stroked-button routerLink="/personas">Volver</a>
+  </mat-card-header>
 
-  <form [formGroup]="form" (ngSubmit)="save()" class="form">
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="save()" class="form">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput type="text" formControlName="nombre" placeholder="Ingrese el nombre">
+        @if (form.controls['nombre'].hasError('required')) {
+          <mat-error>El nombre es obligatorio.</mat-error>
+        }
+        @if (form.controls['nombre'].hasError('minlength')) {
+          <mat-error>Debe tener al menos 2 caracteres.</mat-error>
+        }
+      </mat-form-field>
 
-    <div class="form-group">
-      <label for="nombre">Nombre</label>
-      <input id="nombre"
-             type="text"
-             formControlName="nombre"
-             class="form-control"
-             placeholder="Ingrese el nombre">
-    </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Apellido</mat-label>
+        <input matInput type="text" formControlName="apellido" placeholder="Ingrese el apellido">
+        @if (form.controls['apellido'].hasError('required')) {
+          <mat-error>El apellido es obligatorio.</mat-error>
+        }
+        @if (form.controls['apellido'].hasError('minlength')) {
+          <mat-error>Debe tener al menos 2 caracteres.</mat-error>
+        }
+      </mat-form-field>
 
-    <div class="form-group">
-      <label for="apellido">Apellido</label>
-      <input id="apellido"
-             type="text"
-             formControlName="apellido"
-             class="form-control"
-             placeholder="Ingrese el apellido">
-    </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="ejemplo@correo.com">
+        @if (form.controls['email'].hasError('required')) {
+          <mat-error>El email es obligatorio.</mat-error>
+        }
+        @if (form.controls['email'].hasError('email')) {
+          <mat-error>Ingrese un email valido.</mat-error>
+        }
+      </mat-form-field>
 
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input id="email"
-             type="email"
-             formControlName="email"
-             class="form-control"
-             placeholder="ejemplo@correo.com">
-    </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Edad</mat-label>
+        <input matInput type="number" formControlName="edad" min="0" max="120">
+        @if (form.controls['edad'].hasError('required')) {
+          <mat-error>La edad es obligatoria.</mat-error>
+        }
+        @if (form.controls['edad'].hasError('min') || form.controls['edad'].hasError('max')) {
+          <mat-error>La edad debe estar entre 0 y 120.</mat-error>
+        }
+      </mat-form-field>
 
-    <div class="form-group">
-      <label for="edad">Edad</label>
-      <input id="edad"
-             type="number"
-             formControlName="edad"
-             class="form-control"
-             min="0"
-             max="120"
-             placeholder="Ingrese la edad">
-    </div>
+      <div class="form-actions">
+        <button type="button" mat-stroked-button (click)="cancel()">
+          Cancelar
+        </button>
 
-    <div class="form-actions">
-      <button type="button"
-              (click)="cancel()"
-              class="btn btn-secondary">
-        Cancelar
-      </button>
-
-      <button type="submit"
-              [disabled]="form.invalid || form.pristine"
-              class="btn btn-primary">
-        {{ idEdit ? 'Actualizar' : 'Guardar' }} Persona
-      </button>
-    </div>
-  </form>
-</div>
+        <button type="submit" mat-flat-button color="primary" [disabled]="form.invalid || form.pristine">
+          {{ idEdit ? 'Actualizar' : 'Guardar' }} Persona
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

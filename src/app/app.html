@@ -1,4 +1,7 @@
-<nav style="background: black; color: white; padding: 10px;">
-  <a routerLink="/personas" style="color: white; text-decoration: none;">Mi App Personas</a>
-</nav>
-<router-outlet />
+<mat-toolbar color="primary" class="app-toolbar">
+  <a mat-button routerLink="/personas" class="brand">Mi App Personas</a>
+</mat-toolbar>
+
+<main class="app-shell">
+  <router-outlet />
+</main>

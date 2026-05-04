@@ -1,0 +1,53 @@
+.form-card {
+  border-radius: 8px;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 24px;
+  align-items: center;
+  padding: 24px 24px 0;
+}
+
+.header mat-card-subtitle {
+  grid-column: 1;
+}
+
+.header a {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  justify-self: end;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 20px;
+  padding-top: 24px;
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+@media (max-width: 700px) {
+  .header,
+  .form {
+    grid-template-columns: 1fr;
+  }
+
+  .header a {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+}
