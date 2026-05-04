@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -19,6 +20,7 @@ import { PersonaService } from '../../../core/services/personaService';
     RouterLink,
     MatButtonModule,
     MatCardModule,
+    MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule
@@ -41,7 +43,7 @@ export class PersonaForm implements OnInit {
       nombre: ['', [Validators.required, Validators.minLength(2)]],
       apellido: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      edad: [null, [Validators.required, Validators.min(0), Validators.max(120)]]
+      fechaNacimiento: [null, [Validators.required]]
     });
   }
 
@@ -51,7 +53,12 @@ export class PersonaForm implements OnInit {
     if (this.idEdit) {
       this.srv.getPersonaById(this.idEdit).subscribe({
         next: (p) => {
-          if (p) this.form.patchValue(p);
+          if (p) {
+            this.form.patchValue({
+              ...p,
+              fechaNacimiento: new Date(`${p.fechaNacimiento}T00:00:00`)
+            });
+          }
         },
         error: (err) => console.error('Error al cargar persona', err)
       });
@@ -61,7 +68,10 @@ export class PersonaForm implements OnInit {
   save(): void {
     if (this.form.invalid) return;
 
-    const personaData = this.form.value;
+    const personaData = {
+      ...this.form.value,
+      fechaNacimiento: this.formatDate(this.form.value.fechaNacimiento)
+    };
 
     if (this.idEdit) {
       this.srv.updatePersona(this.idEdit, personaData).subscribe({
@@ -84,5 +94,13 @@ export class PersonaForm implements OnInit {
 
   cancel(): void {
     this.router.navigate(['/personas']);
+  }
+
+  private formatDate(value: Date): string {
+    const year = value.getFullYear();
+    const month = String(value.getMonth() + 1).padStart(2, '0');
+    const day = String(value.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
 }

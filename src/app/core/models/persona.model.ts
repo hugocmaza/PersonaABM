@@ -3,5 +3,5 @@ export interface PersonaModel {
   nombre: string;
   apellido: string;
   email: string;
-  edad: number;
+  fechaNacimiento: string;
 }

@@ -34,7 +34,7 @@ export class PersonaList {
   private readonly snackBar = inject(MatSnackBar);
 
   personas: Signal<PersonaModel[]> = this.service.getPersonas();
-  displayedColumns = ['nombreCompleto', 'email', 'edad', 'acciones'];
+  displayedColumns = ['nombreCompleto', 'email', 'fechaNacimiento', 'acciones'];
 
   delete(persona: PersonaModel) {
     const dialogRef = this.dialog.open(ConfirmDialog, {
