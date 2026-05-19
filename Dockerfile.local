@@ -1,0 +1,17 @@
+# Para prueba local: usa el dist/ ya generado con "npm run build"
+# En CI/CD usar el Dockerfile principal (multi-stage con Node)
+FROM nginx:alpine
+
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY dist/PersonaABM/browser /usr/share/nginx/html
+
+RUN chown -R nginx:nginx /usr/share/nginx/html \
+    && chmod -R 755 /usr/share/nginx/html
+
+EXPOSE 80
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD wget -qO- http://127.0.0.1/ || exit 1
+
+CMD ["nginx", "-g", "daemon off;"]

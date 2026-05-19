@@ -1,14 +1,24 @@
-<h2 mat-dialog-title>{{ data.title }}</h2>
-
-<mat-dialog-content>
-  <p>{{ data.message }}</p>
-</mat-dialog-content>
-
-<mat-dialog-actions align="end">
-  <button mat-button [mat-dialog-close]="false">
-    {{ data.cancelText || 'Cancelar' }}
-  </button>
-  <button mat-flat-button color="warn" [mat-dialog-close]="true">
-    {{ data.confirmText || 'Confirmar' }}
-  </button>
-</mat-dialog-actions>
+@if (service.isOpen()) {
+  <div class="modal-backdrop fade show"></div>
+  <div class="modal fade show d-block" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-lg">
+        <div class="modal-header">
+          <h5 class="modal-title fw-semibold">{{ service.data().title }}</h5>
+          <button type="button" class="btn-close" (click)="service.cancel()" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-0">{{ service.data().message }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="service.cancel()">
+            {{ service.data().cancelText || 'Cancelar' }}
+          </button>
+          <button type="button" class="btn btn-danger" (click)="service.confirm()">
+            <i class="bi bi-trash me-1"></i>{{ service.data().confirmText || 'Confirmar' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

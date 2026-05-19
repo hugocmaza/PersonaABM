@@ -1,7 +1,14 @@
-<mat-toolbar color="primary" class="app-toolbar">
-  <a mat-button routerLink="/personas" class="brand">Mi App Personas</a>
-</mat-toolbar>
+<nav class="navbar navbar-dark bg-primary shadow-sm sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" routerLink="/personas">
+      <i class="bi bi-people-fill me-2"></i>Mi App Personas
+    </a>
+  </div>
+</nav>
 
 <main class="app-shell">
   <router-outlet />
 </main>
+
+<app-confirm-dialog />
+<app-toast />

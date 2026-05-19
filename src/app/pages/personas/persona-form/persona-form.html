@@ -1,64 +1,89 @@
-<mat-card class="form-card">
-  <mat-card-header class="header">
-    <mat-card-title>{{ idEdit ? 'Editar' : 'Nueva' }} Persona</mat-card-title>
-    <mat-card-subtitle>Completa los datos para guardar en la API local</mat-card-subtitle>
-    <a mat-stroked-button routerLink="/personas">Volver</a>
-  </mat-card-header>
+<div class="card shadow-sm">
+  <div class="card-header d-flex justify-content-between align-items-center py-3">
+    <div>
+      <h5 class="mb-0 fw-semibold">{{ idEdit ? 'Editar' : 'Nueva' }} Persona</h5>
+      <small class="text-muted">Completa los datos para guardar en la API local</small>
+    </div>
+    <a class="btn btn-outline-secondary btn-sm" routerLink="/personas">
+      <i class="bi bi-arrow-left me-1"></i> Volver
+    </a>
+  </div>
 
-  <mat-card-content>
-    <form [formGroup]="form" (ngSubmit)="save()" class="form">
-      <mat-form-field appearance="outline">
-        <mat-label>Nombre</mat-label>
-        <input matInput type="text" formControlName="nombre" placeholder="Ingrese el nombre">
-        @if (form.controls['nombre'].hasError('required')) {
-          <mat-error>El nombre es obligatorio.</mat-error>
-        }
-        @if (form.controls['nombre'].hasError('minlength')) {
-          <mat-error>Debe tener al menos 2 caracteres.</mat-error>
-        }
-      </mat-form-field>
+  <div class="card-body p-4">
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="row g-3">
 
-      <mat-form-field appearance="outline">
-        <mat-label>Apellido</mat-label>
-        <input matInput type="text" formControlName="apellido" placeholder="Ingrese el apellido">
-        @if (form.controls['apellido'].hasError('required')) {
-          <mat-error>El apellido es obligatorio.</mat-error>
-        }
-        @if (form.controls['apellido'].hasError('minlength')) {
-          <mat-error>Debe tener al menos 2 caracteres.</mat-error>
-        }
-      </mat-form-field>
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            [class.is-invalid]="isInvalid('nombre')"
+            formControlName="nombre"
+            placeholder="Ingrese el nombre">
+          @if (form.controls['nombre'].hasError('required') && form.controls['nombre'].touched) {
+            <div class="invalid-feedback">El nombre es obligatorio.</div>
+          }
+          @if (form.controls['nombre'].hasError('minlength') && form.controls['nombre'].touched) {
+            <div class="invalid-feedback">Debe tener al menos 2 caracteres.</div>
+          }
+        </div>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="email" placeholder="ejemplo@correo.com">
-        @if (form.controls['email'].hasError('required')) {
-          <mat-error>El email es obligatorio.</mat-error>
-        }
-        @if (form.controls['email'].hasError('email')) {
-          <mat-error>Ingrese un email valido.</mat-error>
-        }
-      </mat-form-field>
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Apellido</label>
+          <input
+            type="text"
+            class="form-control"
+            [class.is-invalid]="isInvalid('apellido')"
+            formControlName="apellido"
+            placeholder="Ingrese el apellido">
+          @if (form.controls['apellido'].hasError('required') && form.controls['apellido'].touched) {
+            <div class="invalid-feedback">El apellido es obligatorio.</div>
+          }
+          @if (form.controls['apellido'].hasError('minlength') && form.controls['apellido'].touched) {
+            <div class="invalid-feedback">Debe tener al menos 2 caracteres.</div>
+          }
+        </div>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Fecha de nacimiento</mat-label>
-        <input matInput [matDatepicker]="fechaNacimientoPicker" formControlName="fechaNacimiento">
-        <mat-datepicker-toggle matIconSuffix [for]="fechaNacimientoPicker"></mat-datepicker-toggle>
-        <mat-datepicker #fechaNacimientoPicker></mat-datepicker>
-        @if (form.controls['fechaNacimiento'].hasError('required')) {
-          <mat-error>La fecha de nacimiento es obligatoria.</mat-error>
-        }
-      </mat-form-field>
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            [class.is-invalid]="isInvalid('email')"
+            formControlName="email"
+            placeholder="ejemplo@correo.com">
+          @if (form.controls['email'].hasError('required') && form.controls['email'].touched) {
+            <div class="invalid-feedback">El email es obligatorio.</div>
+          }
+          @if (form.controls['email'].hasError('email') && form.controls['email'].touched) {
+            <div class="invalid-feedback">Ingrese un email válido.</div>
+          }
+        </div>
 
-      <div class="form-actions">
-        <button type="button" mat-stroked-button (click)="cancel()">
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Fecha de nacimiento</label>
+          <input
+            type="date"
+            class="form-control"
+            [class.is-invalid]="isInvalid('fechaNacimiento')"
+            formControlName="fechaNacimiento">
+          @if (form.controls['fechaNacimiento'].hasError('required') && form.controls['fechaNacimiento'].touched) {
+            <div class="invalid-feedback">La fecha de nacimiento es obligatoria.</div>
+          }
+        </div>
+
+      </div>
+
+      <div class="d-flex gap-2 justify-content-end mt-4">
+        <button type="button" class="btn btn-outline-secondary" (click)="cancel()">
           Cancelar
         </button>
-
-        <button type="submit" mat-flat-button color="primary" [disabled]="form.invalid || form.pristine">
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || form.pristine">
+          <i class="bi bi-floppy-fill me-1"></i>
           {{ idEdit ? 'Actualizar' : 'Guardar' }} Persona
         </button>
       </div>
     </form>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>

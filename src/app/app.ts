@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { ConfirmDialog } from './shared/confirm-dialog/confirm-dialog';
+import { ToastComponent } from './shared/toast/toast.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, MatButtonModule, MatToolbarModule],
+  imports: [RouterOutlet, RouterLink, ConfirmDialog, ToastComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

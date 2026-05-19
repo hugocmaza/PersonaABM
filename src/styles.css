@@ -1,17 +1,4 @@
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
-
-html,
 body {
-  min-height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: Roboto, Arial, sans-serif;
-  background: #f6f7fb;
+  background: #f0f2f5;
   color: #1f2937;
-}
-
-* {
-  box-sizing: border-box;
 }
